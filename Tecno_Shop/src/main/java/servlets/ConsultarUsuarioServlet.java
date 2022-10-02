@@ -36,9 +36,9 @@ public class ConsultarUsuarioServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        String idStr = request.getParameter("id");
-        int id = Integer.parseInt(idStr);
-        Usuario usuario = usuarioController.consultar(id);
+        String numeroIdStr = request.getParameter("numeroIdentificacion");
+        int numeroId = Integer.parseInt(numeroIdStr);
+        Usuario usuario = usuarioController.consultar(numeroId);
         Gson gson = new GsonBuilder().create();
         String usuarioJson = gson.toJson(usuario);
         response.setContentType("application/json");
@@ -49,7 +49,6 @@ public class ConsultarUsuarioServlet extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

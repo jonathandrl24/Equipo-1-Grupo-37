@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,20 +22,19 @@ public class ProductoController {
             + "  stock,\n"
             + "  activo,\n"
             + "  categoria)\n"
-            
             + "VALUES \n"
-            + "  (Test p1, \n"
-            + "  Test p2, \n"
-            + "  Test p3, \n"
-            + "  Test p4, \n"
-            + "  Test p5, \n"
-            + "  Test p6, \n"
-            + "  Test p7, \n"
-            + "  Test p8);";
+            + "  (?, \n"
+            + "   ?, \n"
+            + "   ?, \n"
+            + "   ?, \n"
+            + "   ?, \n"
+            + "   ?, \n"
+            + "   ?, \n"
+            + "   ?);";
 
-    private static final String SELECT = "SELECT id_producto, marca, modelo, nombre, precio, descripcion_adicional, stock, activo, categoria FROM productos WHERE id_producto = ?";
+    private static final String SELECT = "SELECT id_producto, marca, modelo, nombre, precio, descripcion_adicional, stock, activo, categoria FROM productos";
     private static final String UPDATE = "UPDATE productos\n"
-            + "SET marca = Test p1, modelo = Test p2, nombre = Test p3, precio = Test p4, descripcion_adicional= Test p5, stock = Test p6, activo = Test p7 , categoria = Test p8 \n"
+            + "SET marca = ?, modelo = ?, nombre = ?, precio = ?, descripcion_adicional= ?, stock = ?, activo = ?, categoria = ? \n"
             + "WHERE id_producto = ?";
 
     public Productos create(Productos producto) throws SQLException {
@@ -66,33 +67,16 @@ public class ProductoController {
         return producto;
     }
 
-    /**
-     * Metodo para ejecutar la consulta de usuarios
-     *
-     * @param id_producto
-     * @return Productos
-     * @throws SQLException
-     */
-    public Productos consultar(int id_producto) throws SQLException {
+    public Productos consultarPorId(int id) {
         DBConnection conexion = null;
-        Productos producto = null;
+        List<Productos> productos = new ArrayList<>();
+        String consulta = SELECT + " WHERE activo = 1 AND id_producto = ?";
         try {
             conexion = new DBConnection();
             Connection connection = conexion.getConnection();
-            PreparedStatement statement = connection.prepareStatement(SELECT);
-            statement.setInt(1, id_producto);
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                producto = new Productos(rs.getInt("id_producto"),
-                        rs.getString("marca"),
-                        rs.getString("modelo"),
-                        rs.getString("nombre"),
-                        rs.getFloat("precio"),
-                        rs.getString("descripcion_adicional"),
-                        rs.getInt("stock"),
-                        rs.getBoolean("activo"),
-                        rs.getString("categoria"));
-            }
+            PreparedStatement statement = connection.prepareStatement(consulta);
+            statement.setInt(1, id);
+            productos = consultar(statement);
         } catch (SQLException ex) {
             Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -100,7 +84,71 @@ public class ProductoController {
                 conexion.desconectar();
             }
         }
-        return producto;
+        return productos.get(0);
+    }
+    
+    public List<Productos> consultarPorCategoria(String categoria) {
+        DBConnection conexion = null;
+        List<Productos> productos = new ArrayList<>();
+        String consulta = SELECT + " WHERE activo = 1 AND categoria = ?";
+        try {
+            conexion = new DBConnection();
+            Connection connection = conexion.getConnection();
+            PreparedStatement statement = connection.prepareStatement(consulta);
+            statement.setString(1, categoria);
+            productos = consultar(statement);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (conexion != null) {
+                conexion.desconectar();
+            }
+        }
+        return productos;
+    }
+    
+     public List<Productos> consultarActivos() {
+        DBConnection conexion = null;
+        List<Productos> productos = new ArrayList<>();
+        String consulta = SELECT + " WHERE activo = 1";
+        try {
+            conexion = new DBConnection();
+            Connection connection = conexion.getConnection();
+            PreparedStatement statement = connection.prepareStatement(consulta);
+            productos = consultar(statement);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (conexion != null) {
+                conexion.desconectar();
+            }
+        }
+        return productos;
+    }
+
+    /**
+     * Metodo para ejecutar la consulta de usuarios
+     *
+     * @param id_producto
+     * @return Productos
+     * @throws SQLException
+     */
+    private List<Productos> consultar(PreparedStatement statement) throws SQLException {
+        List<Productos> productos = new ArrayList<>();
+        ResultSet rs = statement.executeQuery();
+        while (rs.next()) {
+            Productos producto = new Productos(rs.getInt("id_producto"),
+                    rs.getString("marca"),
+                    rs.getString("modelo"),
+                    rs.getString("nombre"),
+                    rs.getFloat("precio"),
+                    rs.getString("descripcion_adicional"),
+                    rs.getInt("stock"),
+                    rs.getBoolean("activo"),
+                    rs.getString("categoria"));
+            productos.add(producto);
+        }
+        return productos;
     }
 
     public boolean modificar(Productos producto) {

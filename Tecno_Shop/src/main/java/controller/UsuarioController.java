@@ -17,8 +17,7 @@ public class UsuarioController {
             + "  apellido, \n"
             + "  email, \n"
             + "  telefono, \n"
-            + "  direccion) \n"
-            
+            + "  direccion) \n"            
             + "VALUES \n"
             + "  (?, \n"
             + "  ?, \n"
@@ -27,10 +26,9 @@ public class UsuarioController {
             + "  ?, \n"
            
             + "  ?);";
-    private static final String SELECT = "SELECT id_usuario, numero_identificacion, nombre, apellido, email, telefono, direccion, contrasena FROM usuarios WHERE id_usuario = ?";
+    private static final String SELECT = "SELECT id_usuario, numero_identificacion, nombre, apellido, email, telefono, direccion FROM usuarios WHERE numero_identificacion = ?";
     private static final String UPDATE = "UPDATE usuarios\n"
-            + "SET nombre = ?, apellido = ?, email = ?, telefono = ?, direccion = ?, contraseña = ?\n"
-            + "WHERE id_usuario = ?";
+            + "SET nombre = ?, apellido = ?, email = ?, telefono = ?, direccion = ? WHERE id_usuario = ?";
 
     public Usuario create(Usuario usuario) throws SQLException {
         DBConnection conexion = null;
@@ -67,14 +65,14 @@ public class UsuarioController {
      * @return Usuario
      * @throws SQLException
      */
-    public Usuario consultar(int id) throws SQLException {
+    public Usuario consultar(int numeroId) throws SQLException {
         DBConnection conexion = null;
         Usuario usuario = null;
         try {
             conexion = new DBConnection();
             Connection connection = conexion.getConnection();
             PreparedStatement statement = connection.prepareStatement(SELECT);
-            statement.setInt(1, id);
+            statement.setInt(1, numeroId);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 usuario = new Usuario(rs.getInt("id_usuario"),
@@ -84,7 +82,7 @@ public class UsuarioController {
                         rs.getString("email"),
                         rs.getString("telefono"),
                         rs.getString("direccion"),
-                        rs.getString("contrasena"));
+                        null);
             }
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
@@ -108,8 +106,8 @@ public class UsuarioController {
             statement.setString(3, usuario.getEmail());
             statement.setString(4, usuario.getTelefono());
             statement.setString(5, usuario.getDireccion());
-            statement.setString(6, usuario.getContrasena());
-            statement.setInt(7,usuario.getId() );
+            //statement.setString(6, usuario.getContrasena());
+            statement.setInt(6,usuario.getId() );
             conteo = statement.executeUpdate();           
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);

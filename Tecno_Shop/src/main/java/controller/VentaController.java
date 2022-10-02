@@ -28,7 +28,7 @@ public class VentaController {
             
     private static final String SELECT = "SELECT id_venta, fecha, id_producto, valor, cantidad, id_usuario FROM venta WHERE id_venta = ?";
     private static final String UPDATE = "UPDATE venta\n"
-            + "SET fecha = ?, valor = ?, cantidad = ?,\n"
+            + "SET fecha = ?, valor = ?, cantidad = ? \n"
             + "WHERE id_usuario = ?";
 
     public Venta create(Venta venta) throws SQLException {
