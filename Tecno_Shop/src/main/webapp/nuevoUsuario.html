@@ -12,25 +12,15 @@
     <body class="bg-light">
         <header class="header">
 
-        <img class="logo" src="img/Logo.png" alt="Logo TecnoShop">
+        <img class="logo" src="img/Logo.png" alt="Logo TecnoShop" url="index.html">
 
-        <div>
-            <input type="search" id="lupa"  placeholder="¿Que desea buscar?"> 
-        </div>
-
-        <button id="boton-header"> <a href="nuevoUsuario.html" class="link" >Login </a></button>
-
-        <img class="lupa2" src="./img/lupa.png" alt="lupa para Movil">
+        <button id="boton-header"> <a href="index.html" class="link" >Volver </a></button>
 
     </header>
+    <pre></pre>
 
-        <div class="container">
             <main>
-                <section class="banner">
-                    <h1 id="promocion">Septiembre promocional </h1>  
-                    <h1 id="seleccion">Productos seleccionados con 33% de descuento</h1>
-                    <button id="boton-banner" > <a href="index.html#Producto"  class="link-boton-Productos"> Ver Productos </a></button>            
-                </section>
+
                 <div class="row">
                     <div class="col-md-12 col-lg-12">
                         <h4 class="mb-3">Direcci&oacute;n de env&iacute;o</h4>
@@ -92,14 +82,30 @@
                     </div>
                 </div>
             </main>
-            <footer class="my-5 pt-5 text-muted text-center text-small">
-                <p class="mb-1">&copy; 2017–2021 Company Name</p>
-                <ul class="list-inline">
-                    <li class="list-inline-item"><a href="#">Privacy</a></li>
-                    <li class="list-inline-item"><a href="#">Terms</a></li>
-                    <li class="list-inline-item"><a href="#">Support</a></li>
-                </ul>
-            </footer>
+        <section class="rodapie">
+            <div> <img src="img/Logo.png" alt="Logo TecnoShop"> </div>
+
+            <div class="rodapie-menu" >
+                <p><a href="#"> Quienes Somos </a> </p>
+                <p> <a href="#">Politicas de Privacidad</a> </p>
+                <p> <a href="#">Programa de Fidelidad</a> </p>
+                <p> <a href="#">Nuestras Tiendas</a> </p>          
+                <p> <a href="#">Quiero ser Franquiciado</a> </p>
+                <p> <a href="#">Anuncie aqui</a> </p>
+            </div>
+
+            <form class="formulario" id="botones-formulario" action="">
+                <p> <strong> Hable con Nosotros  </strong> </p> 
+                <input class="campo" id="nombre" type="text" placeholder="Nombre y Apellido"  maxlength="50" >
+                <label for="name" id="nombre" class="nombre"> </label> <br> <br>
+
+                <textarea name="mensaje" id="areaTexto" cols="60" rows="5" class="input-padron" style="background-color: rgb(255, 255, 255); border-radius: 10px;" required maxlength="120">  </textarea> <br> <br>
+            
+                <button type="submit" value="enviar" class="boton-enviar" id="btn-enviar"> Enviar Mensaje </button>
+
+            </form>
+
+        </section>
         </div>
 
     </body>

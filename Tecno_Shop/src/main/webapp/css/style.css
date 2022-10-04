@@ -1,41 +1,22 @@
 header{
-    height: 110px;
-    background-color: #9fe7d1;
+    height: 120px;
+    background-color: #d4b529;
     padding-top: 20px;
     display: flex;
     align-items:center;
     flex-direction: row;
     justify-content: space-between;
-    
+    border: #000000;
+
 }
 
 .logo{
-    padding-left: 70px;
-   
+    padding-left: 10px;
+    height: 450px;
+    width: 54;
+    nav-right: auto !important;
     
 }
-
-#lupa{
-    height: 40px;
-    width: 350px;
-    left: 208px;
-    top: 5px;
-    border-radius: 20px;
-    padding: 8px, 16px, 8px, 16px;    
-    background-image: url(../img/lupa.png);
-    background-position: 320px 10px; 
-    background-repeat: no-repeat;
-
-    background-color: #e7e2e2;
-
-}
-
-.lupa2{
-    display: none;
-}
-
-
-
 
 #boton-header{
     background-color: white;
@@ -48,7 +29,7 @@ header{
     padding: 16px;
 
     font-family: Raleway;
-    color: #2A7AE4;
+    color: #0b0c0c;
     margin-left: 300px;  
   
 
@@ -57,7 +38,7 @@ header{
 
 .link{
     text-decoration: none;
-    color: #2A7AE4;
+    color: #030303;
 }
 
 .link-boton-consola{
@@ -66,21 +47,278 @@ header{
     color: #E5E5E5;
 }
 
-.banner{
+/* Menu desplegable*/
+
+#header {
+    margin:none !important;
+    width:500px;
+    font-family:Arial, Helvetica, sans-serif;
+    position: absolute;top: 1px;;left: 900px;right:0;;bottom:0;z-index: 1;
+}
+
+ul, ol {
+    list-style:none;
+}
+
+.nav > li {
+    float:left;
+}
+
+.nav li a {
+    background-color:#494545;
+    color:#fff;
+    text-decoration:none;
+    padding:10px 12px;
+    display:block;
+}
+
+.nav li a:hover {
+    background-color:#434343;
+}
+
+.nav li ul {
+    display:none;
+    position:absolute;
+    min-width:140px;
+}
+
+.nav li:hover > ul {
+    display:block;
+}
+
+.nav li ul li {
+    position:absolute;
+}
+
+.nav li ul li ul {
+    right:-140px;
+    top:0px;
+}
+
+/*----------------------Slider---------------------------  */
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.section-title{
+    font-size: 3.6rem;
+    padding: 3rem 2rem;
+    text-align: left;
+}
+
+.section-container{
+    max-width: 1550px;
+    margin: 5px;
+}
+
+.slider-container{
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.slider-item{
+    height: 25rem;
+    max-height: 35.5rem;
     
-        background: url("../img/banner-image.jpg") no-repeat center / cover;
-        width: 100%;
-        height: 300px;
-               
-        
+}
+
+.slider-prev{
+    animation: arrowPrev .3s;
+    -webkit-animation: arrowPrev .3s;
+}
+
+.slider-next{
+    animation: arrowNext .3s;
+    -webkit-animation:arrowNext .3s;
+}
+
+@keyframes arrowPrev{
+    0%{opacity:0;
+        right:-100%;}
+    20%{opacity:0.2;
+        right:-80%;}
+    40%{opacity:0.4;
+        right:-60%;}
+    60%{opacity:0.6;
+        right:-40%;}
+    80%{opacity:0.8;
+        right:-20%;}
+    100%{right:0%;
+        opacity:1;}
+}
+
+@keyframes arrowNext{
+    0%{opacity:0;
+        left:-100%;}
+    20%{opacity:0.2;
+        left:-80%;}
+    40%{opacity:0.4;
+        left:-60%;}
+    60%{opacity:0.6;
+        left:-40%;}
+    80%{opacity:0.8;
+        left:-20%;}
+    100%{left:0%;
+        opacity:1;}
+}
+
+@-webkit-keyframes arrowPrev{
+    0%{opacity:0;
+        right:-100%;}
+    20%{opacity:0.2;
+        right:-80%;}
+    40%{opacity:0.4;
+        right:-60%;}
+    60%{opacity:0.6;
+        right:-40%;}
+    80%{opacity:0.8;
+        right:-20%;}
+    100%{right:0%;
+        opacity:1;}
+}
+
+@-webkit-keyframes arrowNext{
+    0%{opacity:0;
+        left:-100%;}
+    20%{opacity:0.2;
+        left:-80%;}
+    40%{opacity:0.4;
+        left:-60%;}
+    60%{opacity:0.6;
+        left:-40%;}
+    80%{opacity:0.8;
+        left:-20%;}
+    100%{left:0%;
+        opacity:1;}
+}
+
+.item-title__container{
+    position: relative;
+    top: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom,rgb(0 0 0 / 0%),rgb(0 0 0 / 69%));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.item-background{
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.item-title__title{
+    text-align: center;
+    font-size: 3rem;
+    padding: 0rem 3rem;
+    color: white;
+
+}
+
+.item-title__title{
+    text-shadow: 0rem 0.25rem 0rem rgb(68, 64, 64);
+}
+
+.arrow{
+    position: absolute;
+    z-index: 3;
+    font-size: 3rem;
+    height: 4rem;
+    padding: 0 1.5rem;
+    background: #494545;
+    font-weight: bold;
+    color:white;
+    top: 45%;
+    transition: all .2s;
+    border: none;
+}
+
+.prev-item{
+    left:0;
+    border-radius: 0 2.5rem 2.5rem 0;
+
+}
+
+.next-item:hover, .prev-item:hover{
+    background:rgba(0, 0, 0, 0.8);
+}
+
+.prev-item:after{
+    content:"<"
+}
+
+.next-item{
+    right: 0;
+    border-radius: 2.5rem 0 0 2.5rem;
+}
+
+.next-item:after{
+    content:">"
+}
+
+.pagination {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    display: flex;
+    gap: 1rem;
+    top: 0;
+    list-style: none;
+    padding: 2rem;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.dot {
+    border: none;
+    background: #cccc;
+    padding: 0.4rem;
+    font-size: 0rem;
+    border-radius: 3.125rem;
+}
+
+.dot-active{
+    background: rgb(71, 67, 67);
+}
+
+@media (max-width:1024px){
+
+
+}
+
+@media (max-width:768px){
+html{
+    font-size: 12px;
+}
+
+}
+
+@media (max-width:480px){
+    .item-title__title, .arrow{
+        font-size: 2.5rem;   
     }
+}
+
+
 
 #promocion{
     font-family: Raleway;
     font-weight: bold;
     font-size: 30px;
     color:whitesmoke;
-   
+    margin: auto;;
     padding-top: 100px;
     padding-left: 100px;
 
@@ -106,12 +344,14 @@ header{
     color: #E5E5E5;
     background-color: #53c09f ;
     margin-bottom: 10px;
+
+    transition: 1s all;
 }
 
 /* -------------------------- -------------------------*/
 
 .galeria{
-    background: #E5E5E5;
+    background: #b8b8b8;
     font-family: Raleway;
     padding-top: 50px;
     
@@ -122,7 +362,7 @@ header{
     display: flex;
     justify-content: space-around;
     padding-bottom: 50px;
-    
+
 }
 
 .computadoras{
@@ -135,6 +375,7 @@ header{
     display: flex;
     justify-content: space-around;
     padding-bottom: 50px;
+    background-color: #e0dbdb;
     
 }
 
@@ -144,10 +385,12 @@ header{
 }
 
 .producto__boton{
+    width: 150px;
+    height: 50px;
     border-radius: 10px;
     font-size: 15px;
-    color: #000000;
-    background-color: #53c09f ;
+    color: #E5E5E5;
+    background-color: #bb9f21 ;
     margin-bottom: 10px;
     
     transition: 1s all;
@@ -156,6 +399,9 @@ header{
 .producto__imagen{
     width: 220px;
     height: 220px;
+    margin: 1px;
+    background: #434343;
+    background-color: #585656;
 }
 
 .boton-enviar{
@@ -163,19 +409,27 @@ header{
     height: 50px;
     border-radius: 10px;
     font-size: 15px;
-    color: #E5E5E5;
-    background-color: #53c09f ;
+    color: #000000;
+    background-color: #d6be51 ;
     margin-bottom: 10px;
 
     transition: 1s all;
 }
 
+.producto__boton:hover{
+       
+    background:rgb(59, 82, 87);
+    transform: scale(0.9);
+}
 .boton-enviar:hover{
        
     background:rgb(30, 78, 86);
     transform: scale(0.9);
 }
-
+#boton-banner:hover{
+    background: #5f656d;
+    transform: scale(0.9);
+}
 .campo{
     border-radius: 5px;
     width: 455px;
@@ -247,19 +501,25 @@ footer{
         padding: 16px;
 
         position: static;
-        width: 360px;
-        height: 72px;
+        width: 627px;
+        height: 100px;
         left: 0px;
         top: 0px;
       }    
 
-
-     
+    #header {
+        margin:none !important;
+        width:500px;
+        font-family:Arial, Helvetica, sans-serif;
+        position: absolute;top: 1px;;left: 320px;right:0;;bottom:0;z-index: 1;
+    }
+    
 
     .logo{
-        width: 210px;
+        width: 410px;
         padding-left: 0px;
         margin-left: 0%;
+        position: relative; top: auto; left: auto; right: 70px; 
     }
 
     #lupa{
@@ -282,7 +542,7 @@ footer{
     }
 
     .banner{
-           height: calc(100vh - 220px);
+           height: calc(150vh - 220px);
            padding-top: 300px;          
           
     }
@@ -300,7 +560,7 @@ footer{
         align-items: center;
     }
 
-    .consolas{
+    .computadoras{
         display: flex;
         flex-direction: column;
         align-items: center;
