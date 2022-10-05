@@ -1,12 +1,14 @@
 
 package controller;
 
+import beans.Productos;
 import beans.Venta;
 import connection.DBConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,33 +18,41 @@ public class VentaController {
             + "  (fecha, \n"
             + "  id_producto, \n"// //No estoy segura de esta parte por lo que es una llave en otra tabla
             + "  valor, \n"
-            + "  cantidad) \n"// si se hailita la de abajo borrar parentesis
-            //+ "  id_usuario) \n"  //No estoy segura de esta parte por lo que es una llave en otra tabla
+            + "  cantidad, \n"// si se hailita la de abajo borrar parentesis
+            + "  id_usuario) \n"  //No estoy segura de esta parte por lo que es una llave en otra tabla
             
             + "VALUES \n"
             + "  (?, \n"
             + "  ?, \n" //No estoy segura de esta parte por lo que es una llave en otra tabla
             + "  ?, \n"
-            + "  ?);\n";
-            //+ "  ?);"; //No estoy segura de esta parte por lo que es una llave en otra tabla
+            + "  ?, \n"
+            + "  ?);"; //No estoy segura de esta parte por lo que es una llave en otra tabla
             
     private static final String SELECT = "SELECT id_venta, fecha, id_producto, valor, cantidad, id_usuario FROM venta WHERE id_venta = ?";
     private static final String UPDATE = "UPDATE venta\n"
             + "SET fecha = ?, valor = ?, cantidad = ? \n"
             + "WHERE id_usuario = ?";
+    
+    private ProductoController productoController = new ProductoController();
 
-    public Venta create(Venta venta) throws SQLException {
+    public String create(Venta venta) throws SQLException {
         DBConnection conexion = null;
+        Productos producto = productoController.consultarPorId(venta.getId_producto());
+        if(producto.getStock() == 0) {
+            return "No hay productos en stock!!";
+        } else {
+            producto.setStock(producto.getStock() - 1);
+            productoController.modificar(producto);
+        }
         try {
             conexion = new DBConnection();
             Connection connection = conexion.getConnection();
             PreparedStatement statement = connection.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
-            statement.setInt(1, venta.getId_venta());
-            statement.setDate(2, venta.getFecha());
-            statement.setInt(3, venta.getId_producto());
-            statement.setFloat(4, venta.getValor());
-            statement.setInt(5, venta.getCantidad());
-            statement.setInt(6, venta.getId_usuario());
+            statement.setDate(1, new java.sql.Date(new Date().getTime()));
+            statement.setInt(2, venta.getId_producto());
+            statement.setFloat(3, venta.getValor());
+            statement.setInt(4, venta.getCantidad());
+            statement.setInt(5, venta.getId_usuario());
            
             statement.executeUpdate();
             ResultSet rs = statement.getGeneratedKeys();
@@ -56,7 +66,7 @@ public class VentaController {
                 conexion.desconectar();
             }
         }
-        return venta;
+        return new StringBuilder(venta.getId_venta()).toString();
     }
 
     /**
@@ -102,7 +112,7 @@ public class VentaController {
             Connection connection = conexion.getConnection();
             PreparedStatement statement = connection.prepareStatement(UPDATE);            
             statement.setInt(1, venta.getId_venta());
-            statement.setDate(2, venta.getFecha());
+            statement.setDate(2, new java.sql.Date(venta.getFecha().getTime()));
             statement.setInt(3, venta.getId_producto());
             statement.setFloat(4, venta.getValor());
             statement.setInt(5, venta.getCantidad());

@@ -7,10 +7,9 @@ package servlets;
 import beans.Productos;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import controller.ProductosController;
+import controller.ProductoController;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "ModificarProductosServlet", urlPatterns = {"/ModificarProductosServlet"})
 public class ModificarProductosServlet extends HttpServlet {
 
-    ProductosController productoController = new ProductosController();
+    ProductoController productoController = new ProductoController();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,7 +45,7 @@ public class ModificarProductosServlet extends HttpServlet {
             }
             Gson gson = new GsonBuilder().create();
             Productos producto = gson.fromJson(sb.toString(), Productos.class);
-            Productos.modificar(producto);
+            productoController.modificar(producto);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

@@ -13,8 +13,9 @@ public class Productos {
     private int stock;
     private boolean activo;
     private String categoria;
+    private String urlImagen;
 
-    public Productos(int id_producto, String marca, String modelo, String nombre, float precio, String descripcion_adicional, int stock, boolean activo, String categoria) {
+    public Productos(int id_producto, String marca, String modelo, String nombre, float precio, String descripcion_adicional, int stock, boolean activo, String categoria, String urlImagen) {
         this.id_producto = id_producto;
         this.marca = marca;
         this.modelo = modelo;
@@ -24,6 +25,7 @@ public class Productos {
         this.stock = stock;
         this.activo = activo;
         this.categoria = categoria;
+        this.urlImagen = urlImagen;
     }
 
     public int getId_producto() {
@@ -97,6 +99,14 @@ public class Productos {
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
+
+    public String getUrlImagen() {
+        return urlImagen;
+    }
+
+    public void setUrlImagen(String urlImagen) {
+        this.urlImagen = urlImagen;
+    }    
 
     @Override
     public String toString() {

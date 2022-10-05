@@ -3,13 +3,12 @@ package servlets;
 import beans.Venta;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import controller.VentaController;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,9 +32,18 @@ public class CrearVentaServlet extends HttpServlet {
             }
             Gson gson = new GsonBuilder().create();
             Venta venta = gson.fromJson(sb.toString(), Venta.class);
-            ventaController.create(venta);
-        } catch (Exception e) {
-            e.printStackTrace();
+            String resultado = ventaController.create(venta);
+            response.setContentType("text/plain");
+            //Se saca el PrintWriter para escribir los datos que se van a restornar
+            PrintWriter out = response.getWriter();
+            //Se marca el estado de la peticion con codigo 200 OK para indicar que todo fue bien 
+            response.setStatus(HttpServletResponse.SC_OK);
+            //Se escribe la respuesta
+            out.write(resultado);
+            //Se le indica al writer que ya se termino de escribir y que puede enviar la respuesta
+            out.flush();
+        } catch (JsonSyntaxException | IOException | SQLException e) {
+            
         } finally {
             reader.close();
         }

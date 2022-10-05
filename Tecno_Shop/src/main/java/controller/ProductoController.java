@@ -21,7 +21,8 @@ public class ProductoController {
             + "  descripcion_adicional, \n"
             + "  stock,\n"
             + "  activo,\n"
-            + "  categoria)\n"
+            + "  categoria,"
+            + "  url_imagen)\n"
             + "VALUES \n"
             + "  (?, \n"
             + "   ?, \n"
@@ -30,11 +31,12 @@ public class ProductoController {
             + "   ?, \n"
             + "   ?, \n"
             + "   ?, \n"
+            + "   ?, \n"
             + "   ?);";
 
-    private static final String SELECT = "SELECT id_producto, marca, modelo, nombre, precio, descripcion_adicional, stock, activo, categoria FROM productos";
+    private static final String SELECT = "SELECT id_producto, marca, modelo, nombre, precio, descripcion_adicional, stock, activo, categoria, url_imagen FROM productos";
     private static final String UPDATE = "UPDATE productos\n"
-            + "SET marca = ?, modelo = ?, nombre = ?, precio = ?, descripcion_adicional= ?, stock = ?, activo = ?, categoria = ? \n"
+            + "SET marca = ?, modelo = ?, nombre = ?, precio = ?, descripcion_adicional= ?, stock = ?, activo = ?, categoria = ?, url_imagen = ? \n"
             + "WHERE id_producto = ?";
 
     public Productos create(Productos producto) throws SQLException {
@@ -51,6 +53,7 @@ public class ProductoController {
             statement.setInt(6, producto.getStock());
             statement.setBoolean(7, producto.isActivo()); //Revisar esta parte por lo que es boolean
             statement.setString(8, producto.getCategoria());
+            statement.setString(9, producto.getUrlImagen());
 
             statement.executeUpdate();
             ResultSet rs = statement.getGeneratedKeys();
@@ -90,7 +93,7 @@ public class ProductoController {
     public List<Productos> consultarPorCategoria(String categoria) {
         DBConnection conexion = null;
         List<Productos> productos = new ArrayList<>();
-        String consulta = SELECT + " WHERE activo = 1 AND categoria = ?";
+        String consulta = SELECT + " WHERE activo = 1 AND stock > 0 AND categoria = ?";
         try {
             conexion = new DBConnection();
             Connection connection = conexion.getConnection();
@@ -110,7 +113,7 @@ public class ProductoController {
      public List<Productos> consultarActivos() {
         DBConnection conexion = null;
         List<Productos> productos = new ArrayList<>();
-        String consulta = SELECT + " WHERE activo = 1";
+        String consulta = SELECT + " WHERE activo = 1 AND stock > 0 ";
         try {
             conexion = new DBConnection();
             Connection connection = conexion.getConnection();
@@ -145,7 +148,8 @@ public class ProductoController {
                     rs.getString("descripcion_adicional"),
                     rs.getInt("stock"),
                     rs.getBoolean("activo"),
-                    rs.getString("categoria"));
+                    rs.getString("categoria"),
+                    rs.getString("url_imagen"));
             productos.add(producto);
         }
         return productos;
@@ -166,7 +170,8 @@ public class ProductoController {
             statement.setInt(6, producto.getStock());
             statement.setBoolean(7, producto.isActivo()); //Revisar esta parte por lo que es boolean
             statement.setString(8, producto.getCategoria());
-            statement.setInt(9, producto.getId_producto());
+            statement.setString(9, producto.getUrlImagen());
+            statement.setInt(10, producto.getId_producto());
             conteo = statement.executeUpdate(); //No se esto que significa
 
         } catch (SQLException ex) {

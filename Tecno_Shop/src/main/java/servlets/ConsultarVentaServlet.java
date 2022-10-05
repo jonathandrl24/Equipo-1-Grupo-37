@@ -40,7 +40,7 @@ public class ConsultarVentaServlet extends HttpServlet {
         int id = Integer.parseInt(idStr);
         Venta venta = ventaController.consultar(id);
         Gson gson = new GsonBuilder().create();
-        String ventaJson = gson.toJson(usuario);
+        String ventaJson = gson.toJson(venta);
         response.setContentType("application/json");
         try ( PrintWriter out = response.getWriter()) {
             response.setStatus(HttpServletResponse.SC_OK);
