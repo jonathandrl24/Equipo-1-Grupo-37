@@ -34,7 +34,7 @@ public class CrearVentaServlet extends HttpServlet {
             Venta venta = gson.fromJson(sb.toString(), Venta.class);
             String resultado = ventaController.create(venta);
             response.setContentType("text/plain");
-            //Se saca el PrintWriter para escribir los datos que se van a restornar
+            //Se saca el PrintWriter para escribir los datos que se van a retornar
             PrintWriter out = response.getWriter();
             //Se marca el estado de la peticion con codigo 200 OK para indicar que todo fue bien 
             response.setStatus(HttpServletResponse.SC_OK);
