@@ -9,15 +9,16 @@ import java.util.logging.Logger;
 public class DBConnection {
 
     Connection connection;
-    static String bd = "tecnoshop";
-    static String port = "3307";
+    static String bd = "railway";
+    static String port = "6989";
     static String login = "root";
-    static String password = "admin";
+    static String password = "CQqTEbX2zNRM5ZGIqEnn";
+
 
     public DBConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:"+this.port+"/"+this.bd;
+            String url = "jdbc:mysql://containers-us-west-46.railway.app:"+this.port+"/"+this.bd;
             connection = DriverManager.getConnection(url, this.login, this.password);
             System.out.println("Conexion establecida");
         } catch (Exception e) {
